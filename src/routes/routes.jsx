@@ -2,6 +2,7 @@ import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Layout } from "../Layout/Layout";
 import Home from "../pages/Home/Home";
 import AuthPage from "../pages/AuthPage/AuthPage";
+import ProfilePage from "../pages/ProfilePage/ProfilePage";
 
 export const routes = createBrowserRouter(
     [
@@ -14,9 +15,15 @@ export const routes = createBrowserRouter(
                 {
                     path: "/",
                     element: <Home></Home>
-                }, {
+                },
+
+                {
                     path: '/auth',
                     element: <AuthPage></AuthPage>
+                },
+                {
+                    path: "/:userName",
+                    element: <ProfilePage></ProfilePage>
                 }
             ]
         }
