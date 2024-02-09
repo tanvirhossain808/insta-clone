@@ -1,8 +1,7 @@
 const ProfilePost = () => {
     return (
-        <div>
-
-        </div>
+        <>
+            df</>
     );
 };
 
