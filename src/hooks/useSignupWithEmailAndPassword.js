@@ -2,7 +2,8 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth, firestore } from "../firbase/firebase.config";
 import { doc, setDoc } from 'firebase/firestore';
 import useShowToast from './useShowToast';
-
+import useAuthStore from '../store/useAuthStore';
+export let loginUser;
 const useSignupWithEmailAndPassword = () => {
     const [
         createUserWithEmailAndPassword,
@@ -12,6 +13,7 @@ const useSignupWithEmailAndPassword = () => {
     ] = useCreateUserWithEmailAndPassword(auth);
     console.log(error);
     const showToast = useShowToast();
+    const loginUser = useAuthStore(state => state.login);
     const signup = async (inputs) => {
         if (!inputs.email || !inputs.password || !inputs.userName || !inputs.fullName) {
             // showToast("Error", "Please fill all the fields", "error")
@@ -41,6 +43,7 @@ const useSignupWithEmailAndPassword = () => {
                 console.log(newUser.user.uid)
                 setDoc(doc(firestore, "users", newUser.user.uid), userDocument);
                 localStorage.setItem("user-insta", JSON.stringify(userDocument));
+                loginUser(userDocument);
                 showToast("Success", "Account created", "success")
             }
         }
