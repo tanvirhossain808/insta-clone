@@ -1,8 +1,14 @@
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import { Button, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, CloseButton, Input, InputGroup, InputRightElement, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
+import useSignupWithEmailAndPassword from "../../hooks/useSignupWithEmailAndPassword";
+
 
 const Signup = () => {
+    const {
+        isOpen: isVisible,
+        onClose,
+    } = useDisclosure({ defaultIsOpen: true })
     const [inputs, setInputs] = useState({
         email: "",
         fullName: "",
@@ -10,6 +16,9 @@ const Signup = () => {
         password: "",
     });
     const [showPassword, setPassword] = useState(false);
+    const { loading, error, signup } = useSignupWithEmailAndPassword();
+    console.log(error);
+    // console.log(user)
     return (
         <>
             <Input placeholder="Email" size={"sm"} fontSize={14} type="email" value={inputs.email}
@@ -30,7 +39,18 @@ const Signup = () => {
                     </Button>
                 </InputRightElement>
             </InputGroup>
-            <Button w={'full'} colorScheme="blue" size={"sm"} fontSize={14}>
+            {error && <Alert status="error">
+                <CloseButton
+                    alignSelf='flex-start'
+                    position='relative'
+                    right={-1}
+                    top={-1}
+                    onClick={onClose}
+                />
+                <AlertIcon fontSize={12} />
+                {error.message}
+            </Alert>}
+            <Button w={'full'} colorScheme="blue" size={"sm"} fontSize={14} onClick={() => signup(inputs)} isLoading={loading}>
                 Sign up
             </Button>
 
