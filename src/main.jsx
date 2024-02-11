@@ -4,7 +4,7 @@ import './index.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
-import { RoutesDirection } from './Routeso'
+import { RoutesPath } from './RoutesPath/RoutesPath'
 const style = {
   global: (props) => ({
     body: {
@@ -23,7 +23,7 @@ const theme = extendTheme({ config, style })
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode >
     <ChakraProvider theme={theme}>
-      <RoutesDirection></RoutesDirection>
+      <RoutesPath></RoutesPath>
     </ChakraProvider>
 
   </React.StrictMode>,
