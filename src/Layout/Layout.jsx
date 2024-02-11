@@ -6,17 +6,23 @@ import { auth } from "../firbase/firebase.config";
 import Navbar from "../components/Navbar/Navbar";
 
 export const Layout = ({ children }) => {
-    const { user: userIsLogin, loading, error } = useAuthState(auth);
+    const [user, loading, error] = useAuthState(auth);
     const { pathname } = useLocation();
-    const canRenderSidebar = pathname !== "/auth" && userIsLogin;
-    const canRenderNavbar = !userIsLogin && !loading && pathname !== "/auth";
-    const checkingUserIsAuth = !userIsLogin && loading;
+    const canRenderSidebar = pathname !== "/auth" && user;
+    const canRenderNavbar = !user && !loading && pathname !== "/auth";
+    const checkingUserIsAuth = !user && loading;
+    console.log(canRenderNavbar, canRenderSidebar, 'pdf');
+    console.log(user, 'user')
+    // const canRenderSidebar = pathname !== "/auth" && user;
+    // const canRenderNavbar = !user && !loading && pathname !== "/auth";
     if (checkingUserIsAuth) return <PageLayoutSpinner />
 
     return (
         <>
             <Flex flexDir={canRenderNavbar ? "column" : "row"}>
-
+                <Box w={{ base: "70px", md: "240px" }}>
+                    <SidebarPart />
+                </Box>
 
                 {canRenderSidebar === '/auth' ? (<Box w={{ base: "70px", md: "240px" }}>
                     <SidebarPart />

@@ -3,13 +3,14 @@ import { Layout } from "../Layout/Layout";
 import Home from "../pages/Home/Home";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
-import useAuthStore from "../store/useAuthStore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firbase/firebase.config";
 
 
 
 // here some bugs
 export const RoutesPath = () => {
-    const authUser = useAuthStore(state => state?.user);
+    const [authUser] = useAuthState(auth);
     console.log(authUser);
     const routes = createBrowserRouter(
         [
