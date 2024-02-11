@@ -20,8 +20,8 @@ const ProfilePosts = () => {
         >
             {isLoading && [0, 1, 2, 3, 4, 5].map((_, idx) => (
                 <VStack key={idx} alignItems={"flex-start"} gap={4}>
-                    <Skeleton w={"full"}>
-                        <Box h="300px">
+                    <Skeleton w={{ base: "full", sm: "350px" }}>
+                        <Box h="300">
                             contents wrappe
                         </Box>
                     </Skeleton>

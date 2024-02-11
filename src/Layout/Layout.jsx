@@ -16,7 +16,7 @@ export const Layout = ({ children }) => {
     return (
         <>
             <Flex flexDir={canRenderNavbar ? "column" : "row"}>
-                {/* <Outlet /> */}
+
 
                 {canRenderSidebar === '/auth' ? (<Box w={{ base: "70px", md: "240px" }}>
                     <SidebarPart />
