@@ -7,7 +7,7 @@ import useAuthStore from "../store/useAuthStore";
 
 
 
-
+// here some bugs
 export const Routes = () => {
     const authUser = useAuthStore(state => state?.user);
     console.log(authUser);

@@ -4,7 +4,6 @@ import './index.css'
 import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
-import App from './App.jsx'
 import { Routes } from './routes/Routes.jsx'
 const style = {
   global: (props) => ({
