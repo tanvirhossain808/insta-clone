@@ -17,8 +17,6 @@ const Signup = () => {
     });
     const [showPassword, setPassword] = useState(false);
     const { loading, error, signup } = useSignupWithEmailAndPassword();
-    console.log(error);
-    // console.log(user)
     return (
         <>
             <Input placeholder="Email" size={"sm"} fontSize={14} type="email" value={inputs.email}

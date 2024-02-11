@@ -22,7 +22,6 @@ const GoogleAuth = ({ prefix }) => {
                 const userDoc = userSnap.data();
                 localStorage.setItem("user-insta", JSON.stringify(userDoc));
                 loginUser(userDoc);
-                console.log('heyo')
             }
             else {
                 const userDocument = {
@@ -38,7 +37,6 @@ const GoogleAuth = ({ prefix }) => {
                     createdAt: Date.now(),
 
                 };
-                console.log(newUser.user.uid)
                 setDoc(doc(firestore, "users", newUser.user.uid), userDocument);
                 localStorage.setItem("user-insta", JSON.stringify(userDocument));
                 loginUser(userDocument);

@@ -11,7 +11,6 @@ const useSignupWithEmailAndPassword = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-    console.log(error);
     const showToast = useShowToast();
     const loginUser = useAuthStore(state => state.login);
     const signup = async (inputs) => {
@@ -30,7 +29,6 @@ const useSignupWithEmailAndPassword = () => {
             const newUser = await createUserWithEmailAndPassword(inputs.email, inputs.password);
             if (!newUser && error) {
                 showToast("Error", error.message, "error")
-                console.log('hey', error)
                 return;
             }
             if (newUser) {
@@ -47,7 +45,6 @@ const useSignupWithEmailAndPassword = () => {
                     createdAt: Date.now(),
 
                 };
-                console.log(newUser.user.uid)
                 setDoc(doc(firestore, "users", newUser.user.uid), userDocument);
                 localStorage.setItem("user-insta", JSON.stringify(userDocument));
                 loginUser(userDocument);
@@ -56,7 +53,6 @@ const useSignupWithEmailAndPassword = () => {
         }
         catch (error) {
             showToast("Error", error.message, "error")
-            console.log(error, loading, "erlo")
         }
     }
     return { loading, error, signup }

@@ -11,8 +11,6 @@ export const Layout = ({ children }) => {
     const canRenderSidebar = pathname !== "/auth" && user;
     const canRenderNavbar = !user && !loading && pathname !== "/auth";
     const checkingUserIsAuth = !user && loading;
-    console.log(canRenderNavbar, canRenderSidebar, 'pdf');
-    console.log(user, 'user')
     // const canRenderSidebar = pathname !== "/auth" && user;
     // const canRenderNavbar = !user && !loading && pathname !== "/auth";
     if (checkingUserIsAuth) return <PageLayoutSpinner />

@@ -8,7 +8,6 @@ const Login = () => {
         password: "",
     });
     const { loading, error, login } = useLogin();
-    console.log(error);
     return (
         <>
             <Input placeholder="Email" size={"sm"} fontSize={14} type="email" value={inputs.email}

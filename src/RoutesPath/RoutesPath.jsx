@@ -11,7 +11,6 @@ import { auth } from "../firbase/firebase.config";
 // here some bugs
 export const RoutesPath = () => {
     const [authUser] = useAuthState(auth);
-    console.log(authUser);
     const routes = createBrowserRouter(
         [
             {
