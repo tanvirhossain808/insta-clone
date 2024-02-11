@@ -8,7 +8,7 @@ import useAuthStore from "../store/useAuthStore";
 
 
 // here some bugs
-export const Routes = () => {
+export const RoutesDirection = () => {
     const authUser = useAuthStore(state => state?.user);
     console.log(authUser);
     const routes = createBrowserRouter(
