@@ -20,11 +20,7 @@ export const Layout = ({ children }) => {
     return (
         <>
             <Flex flexDir={canRenderNavbar ? "column" : "row"}>
-                <Box w={{ base: "70px", md: "240px" }}>
-                    <SidebarPart />
-                </Box>
-
-                {canRenderSidebar === '/auth' ? (<Box w={{ base: "70px", md: "240px" }}>
+                {canRenderSidebar ? (<Box w={{ base: "70px", md: "240px" }}>
                     <SidebarPart />
                 </Box>) : null}
                 {canRenderNavbar && <Navbar></Navbar>}
