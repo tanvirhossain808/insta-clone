@@ -5,7 +5,7 @@ import { useRef } from "react";
 import SuggestedUser from "../SuggestedUsers/SuggestedUser";
 
 const Search = () => {
-    const { isLoading, getUserProfile, user } = useSearchUser();
+    const { isLoading, getUserProfile, user, setUser } = useSearchUser();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const searchRef = useRef(null);
     const handleSearchUser = (e) => {
@@ -61,7 +61,7 @@ const Search = () => {
                                 </Button>
                             </Flex>
                         </form>
-                        {user && <SuggestedUser user={user} />}
+                        {user && <SuggestedUser user={user} setUser={setUser} />}
                     </ModalBody>
                 </ModalContent>
 

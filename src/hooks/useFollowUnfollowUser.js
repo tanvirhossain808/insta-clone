@@ -12,7 +12,8 @@ const useFollowUnFollow = (userId) => {
     const { userProfile, setUserProfile } = useProfileStore();
     const showToast = useShowToast();
     const handleFollowUnfollow = async () => {
-        setIsUpdating(true)
+        setIsUpdating(true);
+        console.log(userProfile, 'followerss');
         try {
             const currentUserRef = doc(firestore, "users", user.uid);
             const userToFollowOrUnfollowRef = doc(firestore, "users", userId);
@@ -35,7 +36,7 @@ const useFollowUnFollow = (userId) => {
                         followers: userProfile.followers.filter(uid => uid !== user.uid)
                     }
                 )
-                console.log(userProfile.followers);
+                // console.log(userProfile.followers, 'j');
                 localStorage.setItem("user-insta", JSON.stringify({
 
                     ...user,
@@ -68,6 +69,7 @@ const useFollowUnFollow = (userId) => {
             }
         } catch (error) {
             showToast("Error", error.message, "error");
+            console.log(error);
 
         }
         finally {

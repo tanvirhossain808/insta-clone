@@ -1,13 +1,18 @@
 import { useState } from "react";
 import useShowToast from "./useShowToast";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { firestore } from "../firbase/firebase.config";
+import useProfileStore from "../store/useProfileStore";
 
 const useSearchUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
+    const { userProfile, setUserProfile } = useProfileStore();
     const showToast = useShowToast();
     const getUserProfile = async (userName) => {
+        if (user) {
+            setUserProfile(user)
+        }
         setIsLoading(true)
         try {
             const q = query(collection(firestore, "users"), where("userName", "==", userName));
@@ -23,7 +28,7 @@ const useSearchUser = () => {
             setIsLoading(false)
         }
     };
-    return { isLoading, getUserProfile, user };
+    return { isLoading, getUserProfile, user, setUser };
 };
 
 export default useSearchUser;
