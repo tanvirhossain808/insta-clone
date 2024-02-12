@@ -1,7 +1,16 @@
-import { Box, Flex, Tooltip } from "@chakra-ui/react";
+import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { SearchLogo } from "../../assets/contants";
+import useSearchUser from "../../hooks/useSearchUser";
+import { useRef } from "react";
 
 const Search = () => {
+    const { isLoading, getUserProfile, user } = useSearchUser();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const searchRef = useRef(null);
+    const handleSearchUser = (e) => {
+        e.preventDefault();
+        getUserProfile(searchRef.current.value)
+    };
     return (
         <>
             <Tooltip
@@ -20,11 +29,42 @@ const Search = () => {
                     p={2}
                     w={{ base: 10, md: "full" }}
                     justifyContent={{ base: "center", md: "flex-start" }}
+                    onClick={onOpen}
                 >
                     <SearchLogo />
                     <Box display={{ base: "none", md: "block" }}>Search</Box>
                 </Flex>
             </Tooltip>
+            <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                motionPreset="slideInLeft"
+            >
+                <ModalOverlay />
+                <ModalContent bg={"black"}
+                    border={"1px solid gray"}
+                    maxW={"400px"}
+                >
+                    <ModalHeader>Search user</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody pb={6}>
+                        <form onSubmit={handleSearchUser}>
+                            <FormControl>
+                                <FormLabel>Username</FormLabel>
+                                <Input placeholder="asaprogrammer" ref={searchRef} />
+                            </FormControl>
+                            <Flex>
+
+                                <Button type="submit" ml={"auto"} size={"sm"} my={"4"} isLoading={isLoading}>
+                                    Search
+                                </Button>
+                            </Flex>
+
+                        </form>
+                    </ModalBody>
+                </ModalContent>
+
+            </Modal>
         </>
     );
 };
