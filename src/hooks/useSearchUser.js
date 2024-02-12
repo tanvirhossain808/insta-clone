@@ -10,16 +10,15 @@ const useSearchUser = () => {
     const { userProfile, setUserProfile } = useProfileStore();
     const showToast = useShowToast();
     const getUserProfile = async (userName) => {
-        if (user) {
-            setUserProfile(user)
-        }
+
         setIsLoading(true)
         try {
             const q = query(collection(firestore, "users"), where("userName", "==", userName));
             const querySnapShot = await getDocs(q);
             if (querySnapShot.empty) return showToast("Error", "User not found", "error");
             querySnapShot.forEach((doc) => {
-                setUser(doc.data())
+                setUser(doc.data());
+                setUserProfile(doc.data());
             })
         } catch (error) {
             showToast("Error", error.message, "error")

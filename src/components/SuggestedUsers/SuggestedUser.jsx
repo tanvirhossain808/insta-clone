@@ -1,20 +1,28 @@
-import { Avatar, Box, Button, Flex, VStack } from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, VStack, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import useFollowUnFollow from "../../hooks/useFollowUnfollowUser";
 import useAuthStore from "../../store/useAuthStore";
+import useProfileStore from "../../store/useProfileStore";
 
 const SuggestedUser = ({ user: { profilePictureUrl, followers, following, fullName, uid }, setUser, user: profileSearchUser }) => {
     const [isFollowed, setIsFollowed] = useState(false);
+    const showToast = useToast();
     const { user } = useAuthStore();
+    const { userProfile, setUserProfile } = useProfileStore();
     console.log(profileSearchUser, "followers");
     const { isUpdating, isFollowing, handleFollowUnfollow } = useFollowUnFollow(uid);
-    console.log(isFollowing, 'following');
-    const onFollowUser = () => {
-        setUser({
-            ...profileSearchUser,
-            followers: isFollowing ? profileSearchUser.followers.filter(uid => uid !== user.uid) : [...profileSearchUser.followers, user.uid]
-        });
-        handleFollowUnfollow();
+    // console.log(isFollowing, 'following');
+    const onFollowUser = async () => {
+        try {
+            await handleFollowUnfollow(user);
+            setUser({
+                ...profileSearchUser,
+                followers: isFollowing ? profileSearchUser.followers.filter(uid => uid !== user.uid) : [...profileSearchUser.followers, user.uid]
+            });
+        } catch (error) {
+            showToast("Error", error.message, "error")
+        }
+
     }
     return (
         <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
