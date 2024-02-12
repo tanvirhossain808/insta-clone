@@ -25,28 +25,27 @@ import useEditProfile from "../../hooks/useEditProfile";
 import useShowToast from "../../hooks/useShowToast";
 
 const EditProfile = ({ isOpen, onClose }) => {
-    const[inputs,setInputs]=useState({
-        fullName:"",
-        userName:"",
-        bio:"",
-    });
-    const showToast=useShowToast();
-    const {user:authUser}=useAuthStore();
-    const {user}=useAuthStore();
-    const fileRef=useRef(null);
-    const handleEditProfile=async()=>{
-        
-        try {
-            await editProfile(inputs,selectedFile);
-            setSelectedFile(null);
-            onClose();
-        } catch (error) {
-            showToast("Error",error.message,"error")
-        }
-    };
-    const {editProfile, isUpdating} =useEditProfile()
-    const {selectedFile,setSelectedFile,handleImageChange}=usePreviewImg();
-    // console.log(selectedFile,user,'url');
+	const [inputs, setInputs] = useState({
+		fullName: "",
+		userName: "",
+		bio: "",
+	});
+	const showToast = useShowToast();
+	const { user: authUser } = useAuthStore();
+	const { user } = useAuthStore();
+	const fileRef = useRef(null);
+	const handleEditProfile = async () => {
+
+		try {
+			await editProfile(inputs, selectedFile);
+			setSelectedFile(null);
+			onClose();
+		} catch (error) {
+			showToast("Error", error.message, "error")
+		}
+	};
+	const { editProfile, isUpdating } = useEditProfile()
+	const { selectedFile, setSelectedFile, handleImageChange } = usePreviewImg();
 	return (
 		<>
 			<Modal isOpen={isOpen} onClose={onClose}>
@@ -64,28 +63,28 @@ const EditProfile = ({ isOpen, onClose }) => {
 								<FormControl>
 									<Stack direction={["column", "row"]} spacing={6}>
 										<Center>
-											<Avatar size='xl' src={selectedFile||user.profilePictureUrl} border={"2px solid white "} />
+											<Avatar size='xl' src={selectedFile || user.profilePictureUrl} border={"2px solid white "} />
 										</Center>
 										<Center w='full'>
-											<Button w='full' onClick={()=>fileRef.current.click()}>Edit Profile Picture</Button>
+											<Button w='full' onClick={() => fileRef.current.click()}>Edit Profile Picture</Button>
 										</Center>
-                                        <Input  type="file" hidden ref={fileRef} onChange={handleImageChange}/>
+										<Input type="file" hidden ref={fileRef} onChange={handleImageChange} />
 									</Stack>
 								</FormControl>
 
 								<FormControl>
 									<FormLabel fontSize={"sm"}>Full Name</FormLabel>
-									<Input placeholder={"Full Name"} size={"sm"} type={"text"} value={inputs.fullName||user.fullName} onChange={e=>setInputs({...inputs,fullName:e.target.value})} />
+									<Input placeholder={"Full Name"} size={"sm"} type={"text"} value={inputs.fullName || user.fullName} onChange={e => setInputs({ ...inputs, fullName: e.target.value })} />
 								</FormControl>
 
 								<FormControl>
 									<FormLabel fontSize={"sm"}>Username</FormLabel>
-									<Input placeholder={"Username"} value={inputs.userName||user.userName} onChange={(e)=>setInputs({...inputs,userName:e.target.value})} size={"sm"} type={"text"} />
+									<Input placeholder={"Username"} value={inputs.userName || user.userName} onChange={(e) => setInputs({ ...inputs, userName: e.target.value })} size={"sm"} type={"text"} />
 								</FormControl>
 
 								<FormControl>
 									<FormLabel fontSize={"sm"}>Bio</FormLabel>
-									<Input placeholder={"Bio"} value={inputs.bio||user.bio} onChange={e=>setInputs({...inputs,bio:e.target.value})} size={"sm"} type={"text"} />
+									<Input placeholder={"Bio"} value={inputs.bio || user.bio} onChange={e => setInputs({ ...inputs, bio: e.target.value })} size={"sm"} type={"text"} />
 								</FormControl>
 
 								<Stack spacing={6} direction={["column", "row"]}>
@@ -95,7 +94,7 @@ const EditProfile = ({ isOpen, onClose }) => {
 										w='full'
 										size='sm'
 										_hover={{ bg: "red.500" }}
-                                        onClick={onClose}
+										onClick={onClose}
 									>
 										Cancel
 									</Button>
@@ -105,8 +104,8 @@ const EditProfile = ({ isOpen, onClose }) => {
 										size='sm'
 										w='full'
 										_hover={{ bg: "blue.500" }}
-                                        onClick={handleEditProfile}
-                                        isLoading={isUpdating}
+										onClick={handleEditProfile}
+										isLoading={isUpdating}
 									>
 										Submit
 									</Button>
@@ -123,7 +122,7 @@ const EditProfile = ({ isOpen, onClose }) => {
 export default EditProfile;
 
 
-// 
+//
 /* import {
 	Avatar,
 	Button,
@@ -177,7 +176,7 @@ const EditProfile = ({ isOpen, onClose }) => {
 					<ModalHeader />
 					<ModalCloseButton />
 					<ModalBody>
-						
+
 						<Flex bg={"black"}>
 							<Stack spacing={4} w={"full"} maxW={"md"} bg={"black"} p={6} my={0}>
 								<Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>

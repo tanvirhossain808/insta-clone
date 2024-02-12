@@ -7,7 +7,7 @@ import useProfileStore from "../store/useProfileStore";
 const useSearchUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [user, setUser] = useState(null);
-    const { userProfile, setUserProfile } = useProfileStore();
+    const { setUserProfile } = useProfileStore();
     const showToast = useShowToast();
     const getUserProfile = async (userName) => {
 

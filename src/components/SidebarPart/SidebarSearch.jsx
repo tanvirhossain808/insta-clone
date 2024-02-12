@@ -12,6 +12,10 @@ const Search = () => {
         e.preventDefault();
         getUserProfile(searchRef.current.value)
     };
+    const handleClearSearchInput = () => {
+        onClose();
+        searchRef.current.value = '';
+    }
     return (
         <>
             <Tooltip
@@ -38,7 +42,7 @@ const Search = () => {
             </Tooltip>
             <Modal
                 isOpen={isOpen}
-                onClose={onClose}
+                onClose={handleClearSearchInput}
                 motionPreset="slideInLeft"
             >
                 <ModalOverlay />

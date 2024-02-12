@@ -13,7 +13,6 @@ const useFollowUnFollow = (userId) => {
     const showToast = useShowToast();
     const handleFollowUnfollow = async () => {
         setIsUpdating(true);
-        console.log(userProfile, 'followerss');
         try {
             const currentUserRef = doc(firestore, "users", user.uid);
             const userToFollowOrUnfollowRef = doc(firestore, "users", userId);
@@ -30,13 +29,15 @@ const useFollowUnFollow = (userId) => {
                         following: user.following.filter(uid => uid !== userId)
                     }
                 );
-                setUserProfile(
-                    {
-                        ...userProfile,
-                        followers: userProfile.followers.filter(uid => uid !== user.uid)
-                    }
-                )
-                // console.log(userProfile.followers, 'j');
+                if (userProfile) {
+                    setUserProfile(
+                        {
+                            ...userProfile,
+                            followers: userProfile.followers.filter(uid => uid !== user.uid)
+                        }
+                    )
+                }
+
                 localStorage.setItem("user-insta", JSON.stringify({
 
                     ...user,
@@ -53,12 +54,15 @@ const useFollowUnFollow = (userId) => {
                         following: [...user.following, userId]
                     }
                 );
-                setUserProfile(
-                    {
-                        ...userProfile,
-                        followers: [...userProfile.followers, user.uid]
-                    }
-                );
+                if (userProfile) {
+                    setUserProfile(
+                        {
+                            ...userProfile,
+                            followers: [...userProfile.followers, user.uid]
+                        }
+                    );
+                }
+
                 localStorage.setItem('user-insta', JSON.stringify({
 
                     ...user,
@@ -69,7 +73,6 @@ const useFollowUnFollow = (userId) => {
             }
         } catch (error) {
             showToast("Error", error.message, "error");
-            console.log(error);
 
         }
         finally {

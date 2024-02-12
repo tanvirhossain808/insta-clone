@@ -9,7 +9,6 @@ const ProfileHeader = () => {
     const { user } = useAuthStore();
     const { isUpdating, isFollowing, handleFollowUnfollow } = useFollowUnFollow(userProfile?.uid);
     const visitingOwnProfileAndAuthenticated = user && user.userName === userProfile.userName;
-    console.log(visitingOwnProfileAndAuthenticated);
     const visitinganotherUserProfileAndAuthenticated = user && user.userName !== userProfile.userName;
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (

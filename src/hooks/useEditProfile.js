@@ -57,7 +57,6 @@ const useEditProfile = () => {
         const userDocRef = doc(firestore, "users", user.uid);
         let Url = "";
         try {
-            console.log(selectedFile)
             if (selectedFile) {
                 await uploadString(storageRef, selectedFile, 'data_url');
                 Url = await getDownloadURL(storageRef)

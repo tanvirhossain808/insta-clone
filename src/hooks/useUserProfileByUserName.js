@@ -16,7 +16,6 @@ const useUserProfileByUserName = (userName) => {
                 const q = query(collection(firestore, "users"), where("userName", "==", userName));
                 const querySnapshot = await getDocs(q);
                 if (querySnapshot.empty) return setUserProfile(null);
-                console.log(querySnapshot, 'snapshot');
                 let userDoc;
                 querySnapshot.forEach((doc) => {
                     userDoc = doc.data();
