@@ -13,7 +13,7 @@ const Home = () => {
                     mr={20}
                     display={{ base: "none", lg: "block" }}
                     maxW={"300px"}>
-                    <SuggestedUsers></SuggestedUsers>
+                    {/* <SuggestedUsers></SuggestedUsers> */}
                 </Box>
             </Flex>
         </Container>

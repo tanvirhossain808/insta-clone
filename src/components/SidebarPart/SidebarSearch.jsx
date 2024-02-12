@@ -2,6 +2,7 @@ import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, Mod
 import { SearchLogo } from "../../assets/contants";
 import useSearchUser from "../../hooks/useSearchUser";
 import { useRef } from "react";
+import SuggestedUser from "../SuggestedUsers/SuggestedUser";
 
 const Search = () => {
     const { isLoading, getUserProfile, user } = useSearchUser();
@@ -59,8 +60,8 @@ const Search = () => {
                                     Search
                                 </Button>
                             </Flex>
-
                         </form>
+                        {user && <SuggestedUser user={user} />}
                     </ModalBody>
                 </ModalContent>
 
