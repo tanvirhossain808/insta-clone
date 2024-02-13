@@ -8,12 +8,12 @@ import usePostStore from "../../store/usePostStore";
 const ProfileHeader = () => {
     const { userProfile } = useProfileStore();
     const { user } = useAuthStore();
-    const { posts } = usePostStore()
+    // const { posts } = usePostStore()
+    console.log(userProfile, 'k');
     const { isUpdating, isFollowing, handleFollowUnfollow } = useFollowUnFollow(userProfile?.uid);
     const visitingOwnProfileAndAuthenticated = user && user.userName === userProfile.userName;
     const visitinganotherUserProfileAndAuthenticated = user && user.userName !== userProfile.userName;
     const { isOpen, onOpen, onClose } = useDisclosure();
-    console.log(userProfile);
     return (
         <Flex gap={{ base: 4, sm: 10 }}
             py={10}

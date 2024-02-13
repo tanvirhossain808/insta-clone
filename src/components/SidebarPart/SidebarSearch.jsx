@@ -2,7 +2,7 @@ import { Box, Button, Flex, FormControl, FormLabel, Input, Modal, ModalBody, Mod
 import { SearchLogo } from "../../assets/contants";
 import useSearchUser from "../../hooks/useSearchUser";
 import { useRef } from "react";
-import SuggestedUser from "../SuggestedUsers/SuggestedUser";
+import SuggestedUser from "../SuggestedUsers/SuggestedUser"
 
 const Search = () => {
     const { isLoading, getUserProfile, user, setUser } = useSearchUser();
@@ -15,7 +15,7 @@ const Search = () => {
     const handleClearSearchInput = () => {
         onClose();
         searchRef.current.value = '';
-    }
+    };
     return (
         <>
             <Tooltip

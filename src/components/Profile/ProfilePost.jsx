@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react";
+import { Avatar, Button, Divider, Flex, GridItem, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Text, VStack, useDisclosure } from "@chakra-ui/react";
 import { AiFillHeart } from "react-icons/ai"
 import { FaComment } from "react-icons/fa"
 import { MdDelete } from "react-icons/md"
@@ -7,17 +7,44 @@ import PostFooter from "../FeedPosts/PostFooter"
 import useProfileStore from "../../store/useProfileStore"
 import useAuthStore from "../../store/useAuthStore";
 import usePostStore from "../../store/usePostStore";
+import useShowToast from "../../hooks/useShowToast"
+import { useState } from "react";
+import { firestore, storage } from "../../firbase/firebase.config";
+import { deleteObject, ref } from "firebase/storage";
+import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 const ProfilePost = ({ post: { imageUrl, likes, comments, id } }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { user } = useAuthStore()
-    const { userProfile: { userName, profilePictureUrl, uid } } = useProfileStore();
-    const { deletePost, posts } = usePostStore();
-    const handleDelPost = () => {
-        console.log(posts.length);
-        deletePost(id);
+    const { user, setUser } = useAuthStore();
+    const showToast = useShowToast();
+    const { userProfile: { userName, profilePictureUrl, uid }, deleteprofilePost, userProfile } = useProfileStore(); console.log(userProfile.posts.length, 'e');
+    const { deletePost, posts, } = usePostStore();
+    const [isDeleting, setIsDeleting] = useState(false);
+    const handleDelPost = async () => {
+        if (isDeleting) return;
+        if (!window.confirm("Are you sure want to delete the user")) return;
+        try {
+            setIsDeleting(true);
+            const imageRef = ref(storage, `posts/${id}`);
+            await deleteObject(imageRef);
+            const userRef = doc(firestore, "users", user.uid);
+            await deleteDoc(doc(firestore, "posts", id));
+
+            await updateDoc(userRef, {
+                posts: arrayRemove(id)
+            })
+            deletePost(id);
+            deleteprofilePost(id);
+            showToast("Success", "Post deleted successfully", "success")
+        } catch (error) {
+            showToast("Error", error.message, "error");
+            console.log(error);
+
+        }
+        finally {
+            setIsDeleting(false);
+        }
     };
-    console.log(posts.length, 'after');
     return (
         <>
 
@@ -104,7 +131,9 @@ const ProfilePost = ({ post: { imageUrl, likes, comments, id } }) => {
                                         </Text>
                                     </Flex>
                                     {/*  */}
-                                    {user?.uid === uid && <Button size={"sm"} bg={"transparent"} _hover={{ bg: "whiteAlpha.300", color: "red.600" }} borderRadius={4} p={1} onClick={handleDelPost}>
+                                    {user?.uid === uid && <Button size={"sm"} bg={"transparent"} _hover={{ bg: "whiteAlpha.300", color: "red.600" }} borderRadius={4} p={1} onClick={handleDelPost}
+                                        isLoading={isDeleting}
+                                    >
                                         <MdDelete size={20} cursor={"pointer"} />
                                     </Button>}
                                 </Flex>

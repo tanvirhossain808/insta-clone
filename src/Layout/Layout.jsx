@@ -4,16 +4,21 @@ import { SidebarPart } from "../components/SidebarPart/SidebarPart";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firbase/firebase.config";
 import Navbar from "../components/Navbar/Navbar";
+import useProfileStore from "../store/useProfileStore";
 
 export const Layout = ({ children }) => {
     const [user, loading, error] = useAuthState(auth);
+    const { userProfile } = useProfileStore();
+    console.log(userProfile?.posts.length, "dlkj");
     const { pathname } = useLocation();
     const canRenderSidebar = pathname !== "/auth" && user;
     const canRenderNavbar = !user && !loading && pathname !== "/auth";
     const checkingUserIsAuth = !user && loading;
     // const canRenderSidebar = pathname !== "/auth" && user;
     // const canRenderNavbar = !user && !loading && pathname !== "/auth";
-    if (checkingUserIsAuth) return <PageLayoutSpinner />
+    if (checkingUserIsAuth) return <PageLayoutSpinner />;
+
+
 
     return (
         <>
