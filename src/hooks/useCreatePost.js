@@ -29,11 +29,9 @@ const useCreatePost = () => {
             const postDocRef = await addDoc(collection(firestore, "posts"), newPost);
             const userDocRef = doc(firestore, "users", user.uid);
             const imageRef = ref(storage, `posts/${postDocRef.id}`);
-            // console.log(imageRef);
             await updateDoc(userDocRef, { posts: arrayUnion(postDocRef.id) });
             await uploadString(imageRef, selectedFile, "data_url");
             const downloadUrl = await getDownloadURL(imageRef);
-            console.log(downloadUrl, 're');
 
             await updateDoc(postDocRef, { imageUrl: downloadUrl });
             newPost.imageUrl = downloadUrl;
@@ -43,7 +41,6 @@ const useCreatePost = () => {
 
         } catch (error) {
             showToast("Error", error.message, "error");
-            console.log(error);
         }
         finally {
             setIsLoading(false)

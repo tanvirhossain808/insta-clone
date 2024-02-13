@@ -22,7 +22,6 @@ const SidebarCreatePost = () => {
             setSelectedFile(null)
         } catch (error) {
             showToast('Error', error.message, "error");
-            // console.log(error);
         }
     }
     return (

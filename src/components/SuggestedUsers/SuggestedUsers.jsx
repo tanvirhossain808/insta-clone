@@ -5,7 +5,6 @@ import useSuggestedUsers from "../../hooks/useSuggestedUsers";
 
 const SuggestedUsers = () => {
     const { isLoading, suggestedUsers } = useSuggestedUsers();
-    console.log(suggestedUsers)
 
     return (
         <>

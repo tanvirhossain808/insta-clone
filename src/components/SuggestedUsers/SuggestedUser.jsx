@@ -17,7 +17,6 @@ const SuggestedUser = ({ user: { profilePictureUrl, followers, fullName, uid }, 
             }
 
         } catch (error) {
-            console.log(error);
             showToast("Error", error.message, "error");
         }
 

@@ -4,16 +4,13 @@
 // const useEditProfile = () => {
 //     const showToast = useShowToast()
 //     const updateUserProfileInfo = async (inputs, userId) => {
-//         console.log(userId.uid);
 //         try {
 //             const success = await set(ref(firestore, "users/", userId.uid), {
 //                 fullName: inputs.fullName,
 //                 userName: inputs.userName,
 //                 bio: inputs.bio
 //             });
-//             console.log(success);
 //         } catch (error) {
-//             console.log(error);
 //             showToast("Error", error.message, "error")
 //         }
 

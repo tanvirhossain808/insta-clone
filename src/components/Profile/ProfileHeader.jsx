@@ -13,6 +13,7 @@ const ProfileHeader = () => {
     const visitingOwnProfileAndAuthenticated = user && user.userName === userProfile.userName;
     const visitinganotherUserProfileAndAuthenticated = user && user.userName !== userProfile.userName;
     const { isOpen, onOpen, onClose } = useDisclosure();
+    console.log(userProfile);
     return (
         <Flex gap={{ base: 4, sm: 10 }}
             py={10}
@@ -66,7 +67,7 @@ const ProfileHeader = () => {
                 </Flex>}
                 <Flex alignItems={"center"} gap={{ base: 2, sm: 4 }}>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.posts?.length}</Text>
+                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.posts.length}</Text>
                         Posts
                     </Text>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
