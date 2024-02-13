@@ -10,7 +10,8 @@ const ProfileHeader = () => {
     const { isUpdating, isFollowing, handleFollowUnfollow } = useFollowUnFollow(userProfile?.uid);
     const visitingOwnProfileAndAuthenticated = user && user.userName === userProfile.userName;
     const visitinganotherUserProfileAndAuthenticated = user && user.userName !== userProfile.userName;
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    console.log(userProfile);
     return (
         <Flex gap={{ base: 4, sm: 10 }}
             py={10}
@@ -68,11 +69,11 @@ const ProfileHeader = () => {
                         Posts
                     </Text>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.followers.length}</Text>
+                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.followers?.length}</Text>
                         Followers
                     </Text>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.following.length}</Text>
+                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.following?.length}</Text>
                         Following
                     </Text>
                 </Flex>
