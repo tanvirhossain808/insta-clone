@@ -3,15 +3,16 @@ import useProfileStore from "../../store/useProfileStore";
 import useAuthStore from "../../store/useAuthStore";
 import EditProfile from "./EditProfile";
 import useFollowUnFollow from "../../hooks/useFollowUnfollowUser";
+import usePostStore from "../../store/usePostStore";
 
 const ProfileHeader = () => {
     const { userProfile } = useProfileStore();
     const { user } = useAuthStore();
+    const { posts } = usePostStore()
     const { isUpdating, isFollowing, handleFollowUnfollow } = useFollowUnFollow(userProfile?.uid);
     const visitingOwnProfileAndAuthenticated = user && user.userName === userProfile.userName;
     const visitinganotherUserProfileAndAuthenticated = user && user.userName !== userProfile.userName;
     const { isOpen, onOpen, onClose } = useDisclosure();
-    console.log(userProfile);
     return (
         <Flex gap={{ base: 4, sm: 10 }}
             py={10}
@@ -65,15 +66,15 @@ const ProfileHeader = () => {
                 </Flex>}
                 <Flex alignItems={"center"} gap={{ base: 2, sm: 4 }}>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.posts.length}</Text>
+                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.posts?.length}</Text>
                         Posts
                     </Text>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.followers?.length}</Text>
+                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.followers.length}</Text>
                         Followers
                     </Text>
                     <Text fontSize={{ base: "xs", md: "sm" }}>
-                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.following?.length}</Text>
+                        <Text as={"span"} fontWeight={"bold"} mr={1}>{userProfile.following.length}</Text>
                         Following
                     </Text>
                 </Flex>

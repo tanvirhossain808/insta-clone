@@ -15,6 +15,7 @@ const SidebarCreatePost = () => {
     const { isLoading, handleCreatePost } = useCreatePost();
     const handlePostCreation = async () => {
         try {
+            if (isLoading) return;
             await handleCreatePost(selectedFile, caption);
             onClose();
             setCaption("");

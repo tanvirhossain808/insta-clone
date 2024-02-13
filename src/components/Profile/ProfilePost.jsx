@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md"
 import Comment from "../Comment/Comment";
 import PostFooter from "../FeedPosts/PostFooter"
 
-const ProfilePost = ({ img }) => {
+const ProfilePost = ({ post: { imageUrl } }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
@@ -52,7 +52,7 @@ const ProfilePost = ({ img }) => {
                         </Flex>
                     </Flex>
                 </Flex>
-                <Image src={img} alt="profile post" w={"100%"} h={"100%"} objectFit={"cover"} />
+                <Image src={imageUrl} alt="profile post" w={"100%"} h={"100%"} objectFit={"cover"} />
             </GridItem >
 
             <Modal isOpen={isOpen} onClose={onClose}
@@ -71,7 +71,7 @@ const ProfilePost = ({ img }) => {
                                 borderColor={"whiteAlpha.300"}
                                 flex={1.5}
                             >
-                                <Image src={img} alt="profie post" />
+                                <Image src={imageUrl} alt="profie post" />
                             </Box>
                             <Flex flex={1}
                                 flexDir={"column"}
