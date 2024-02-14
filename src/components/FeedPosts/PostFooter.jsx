@@ -1,28 +1,20 @@
 import { Box, Button, Flex, Input, InputGroup, InputRightElement, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from "../../assets/contants";
 import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/useAuthStore.js"
+import useLikeUnlikePost from "../../hooks/useLikeUnlikePost.js";
 
 const PostFooter = ({ userName, isProfilePage, post }) => {
     const [liked, setLiked] = useState(false);
-    const [likes, setLikes] = useState(1000);
     const { isCommenting, handlePostComment } = usePostComment();
     const [comment, setComment] = useState('');
-    const authUser = useAuthStore((state => state.user))
+    const authUser = useAuthStore((state => state.user));
+    const commentRef = useRef(null);
+    const { isUpdating, likes, isLiked, handleLikedPost } = useLikeUnlikePost(post);
     const handleSubmitComment = async () => {
         await handlePostComment(post.id, comment);
         setComment('');
-    }
-    const handleLike = () => {
-        if (liked) {
-            setLiked(false);
-            setLikes(likes - 1)
-        }
-        else {
-            setLiked(true)
-            setLikes(likes + 1)
-        }
     }
     return (
         <Box my={10} mt={"auto"}>
@@ -32,14 +24,15 @@ const PostFooter = ({ userName, isProfilePage, post }) => {
                 pt={0}
                 mb={2}
                 mt={4}>
-                <Box onClick={handleLike}
+                <Box onClick={handleLikedPost}
                     cursor={"pointer"}
                     fontSize={18}>
-                    {!liked ? <NotificationsLogo /> : <UnlikeLogo />}
+                    {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
                 </Box>
                 <Box
                     cursor={"pointer"}
-                    fontSize={18}>
+                    fontSize={18}
+                    onClick={() => commentRef.current.select()}>
                     <CommentLogo />
                 </Box>
             </Flex>
@@ -72,6 +65,7 @@ const PostFooter = ({ userName, isProfilePage, post }) => {
                     <InputGroup>
                         <Input variant={"flushed"} placeholder="Add a comment..." fontSize={14} onChange={e => setComment(e.target.value)}
                             value={comment}
+                            ref={commentRef}
                         />
                         <InputRightElement>
                             <Button

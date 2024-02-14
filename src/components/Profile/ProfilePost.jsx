@@ -12,6 +12,7 @@ import { useState } from "react";
 import { firestore, storage } from "../../firbase/firebase.config";
 import { deleteObject, ref } from "firebase/storage";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import Caption from "../Comment/Caption";
 
 const ProfilePost = ({ post: { imageUrl, likes, comments, id }, post }) => {
     console.log(post, 'd');
@@ -140,6 +141,7 @@ const ProfilePost = ({ post: { imageUrl, likes, comments, id }, post }) => {
                                 </Flex>
                                 <Divider my={4} bg={"gray.500"} />
                                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
+                                    {post.caption && <Caption post={post} />}
                                     {post.comments.map((comment, index) => <Comment key={index} comment={comment} />)}
 
                                 </VStack>
