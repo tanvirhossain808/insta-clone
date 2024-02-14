@@ -13,7 +13,8 @@ import { firestore, storage } from "../../firbase/firebase.config";
 import { deleteObject, ref } from "firebase/storage";
 import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 
-const ProfilePost = ({ post: { imageUrl, likes, comments, id } }) => {
+const ProfilePost = ({ post: { imageUrl, likes, comments, id }, post }) => {
+    console.log(post, 'd');
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { user, setUser } = useAuthStore();
     const showToast = useShowToast();
@@ -139,29 +140,11 @@ const ProfilePost = ({ post: { imageUrl, likes, comments, id } }) => {
                                 </Flex>
                                 <Divider my={4} bg={"gray.500"} />
                                 <VStack w={"full"} alignItems={"start"} maxH={"350px"} overflowY={"auto"}>
-                                    <Comment
-                                        createdAt={"1d ago"}
-                                        userName="asaprogrammer_"
-                                        profilePic="/profilepic.png"
-                                        text={"Dummy images from programmer"}
-                                    />
-                                    <Comment
-                                        createdAt={"12h ago"}
-                                        userName="abrahmovr"
-                                        profilePic="https://bit.ly/dan-abramov"
-                                        text={"Osm pic"}
-                                    />
-                                    <Comment
-                                        createdAt={"2h ago"}
-                                        userName="kendtdodds"
-                                        profilePic="https://bit.ly/kent-c-dodds"
-                                        text={"Goog clone dude"}
-                                    />
-
+                                    {post.comments.map((comment, index) => <Comment key={index} comment={comment} />)}
 
                                 </VStack>
                                 <Divider my={4} bg={"gray.800"} />
-                                <PostFooter isProfilePage={true} />
+                                <PostFooter isProfilePage={true} post={post} />
                             </Flex>
                         </Flex>
                     </ModalBody>

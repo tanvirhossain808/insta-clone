@@ -1,21 +1,33 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Skeleton, SkeletonCircle, Text } from "@chakra-ui/react";
+import useGetUserProfileById from "../../hooks/useGetUserProfileById";
+import { Link } from "react-router-dom";
+import { timeAgo } from "../../utlisties/timeAgo";
 
-const Comment = ({ createdAt, profilePic, userName, text }) => {
+const Comment = ({ comment }) => {
+    // console.log(comment, 'comment');
+    const { isLoading, userProfile, setUserProfile } = useGetUserProfileById(comment.createdBy);
+
+    if (isLoading) return <CommentSkeleton />
     return (
         <Flex gap={4}
         >
-            <Avatar src={profilePic} name={userName} size={"sm"} />
+            <Link to={`/${userProfile.userName}`}>
+                <Avatar src={userProfile.profilePictureUrl} size={"sm"} /></Link>
+
             <Flex direction={"column"}>
-                <Flex gap={2}>
-                    <Text fontWeight={"bold"} fontSize={12}>
-                        {userName}
-                    </Text>
+                <Flex gap={2} alignItems={"center"}>
+                    <Link to={`/${userProfile.userName}`}>
+                        <Text fontWeight={"bold"} fontSize={12}>
+                            {userProfile.userName}
+                        </Text>
+                    </Link >
                     <Text fontSize={13}>
-                        {text}
+                        {/* {text} */}
+                        {comment.comment}
                     </Text>
                 </Flex>
                 <Text fontSize={10} color={"gray"}>
-                    {createdAt}
+                    {timeAgo(comment.createdAt)}
                 </Text>
             </Flex>
         </Flex >
@@ -23,3 +35,15 @@ const Comment = ({ createdAt, profilePic, userName, text }) => {
 };
 
 export default Comment;
+const CommentSkeleton = () => {
+    return (
+        <Flex gap={4} w={"full"} alignItems={"center"}>
+            <SkeletonCircle h={10} w={10}>
+                <Flex gap={1} flexDir={"column"}>
+                    <Skeleton height={2} width={100} />
+                    <Skeleton height={2} width={50} />
+                </Flex>
+            </SkeletonCircle>
+        </Flex>
+    )
+}
