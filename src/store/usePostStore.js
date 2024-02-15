@@ -15,7 +15,21 @@ const usePostStore = create(set => (
                 }
                 return post;
             })
-        }))
+        })),
+
+        // addLikes: (likeId) => set(state => ({
+        //     posts: state.posts.forEach(post => {
+        //         if (post.id === likeId) {
+        //             return {
+        //                 ...post,
+        //                 likes: [...post.likes, like]
+        //             }
+        //         }
+        //     }),
+        // })),
+        // removeLikes: (likeId) => set(state => ({
+        //     posts: [state.posts, likes: []]
+        // }))
     }
 ));
 

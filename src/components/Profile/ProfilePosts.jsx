@@ -5,7 +5,7 @@ import useGetUserPosts from "../../hooks/useGetUserPosts";
 const ProfilePosts = () => {
 
     const { isLoading, posts } = useGetUserPosts();
-    const noPostFound = !isLoading && posts.length === 0;
+    const noPostFound = !isLoading && posts?.length === 0;
     if (noPostFound) return <NopostFound />
     return (
         <Grid
