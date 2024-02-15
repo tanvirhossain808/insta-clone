@@ -13,7 +13,7 @@ const useCreatePost = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { user } = useAuthStore();
     const { createPost } = usePostStore();
-    const { addPost } = useProfileStore();
+    const { addPost, userProfile } = useProfileStore();
     const { pathname } = useLocation();
     const handleCreatePost = async (selectedFile, caption) => {
         if (!selectedFile) throw new Error("Please select an image");
@@ -35,6 +35,7 @@ const useCreatePost = () => {
 
             await updateDoc(postDocRef, { imageUrl: downloadUrl });
             newPost.imageUrl = downloadUrl;
+            if (pathname !== "/" && userProfile.uid !== user.uid) return;
             createPost({ ...newPost, id: postDocRef.id });
             addPost({ ...newPost, id: postDocRef.id });
             showToast("Success", "Post create successfully", "success")

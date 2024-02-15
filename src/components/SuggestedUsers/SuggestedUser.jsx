@@ -1,8 +1,9 @@
 import { Avatar, Box, Button, Flex, VStack, useToast } from "@chakra-ui/react";
 import useFollowUnFollow from "../../hooks/useFollowUnfollowUser";
 import useAuthStore from "../../store/useAuthStore";
+import { Link } from "react-router-dom";
 
-const SuggestedUser = ({ user: { profilePictureUrl, followers, fullName, uid }, setUser, user: profileSearchUser }) => {
+const SuggestedUser = ({ user: { profilePictureUrl, followers, fullName, uid, userName }, setUser, user: profileSearchUser }) => {
     const showToast = useToast();
     const { user } = useAuthStore();
     const { isUpdating, isFollowing, handleFollowUnfollow } = useFollowUnFollow(uid);
@@ -24,11 +25,17 @@ const SuggestedUser = ({ user: { profilePictureUrl, followers, fullName, uid }, 
     return (
         <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
             <Flex alignItems={"center"} gap={2}>
-                <Avatar src={profilePictureUrl} name={fullName} size={"md"} />
+
+                <Link to={`/${userName}`}>
+                    <Avatar src={profilePictureUrl} name={fullName} size={"md"} />
+                </Link>
+
                 <VStack spacing={2} alignItems={"flex-start"}>
-                    <Box fontSize={12} fontWeight={"bold"}>
-                        {fullName}
-                    </Box>
+                    <Link to={`/${userName}`}>
+                        <Box fontSize={12} fontWeight={"bold"}>
+                            {fullName}
+                        </Box>
+                    </Link>
                     <Box fontSize={11} fontWeight={"bold"} color={"gray.500"}>
                         {followers.length} followers
                     </Box>
