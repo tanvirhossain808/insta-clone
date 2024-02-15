@@ -25,7 +25,7 @@ const useLikeUnlikePost = (post) => {
             });
             setIsLiked(!isLiked);
             isLiked ? setLikes(likes - 1) : setLikes(likes + 1);
-            isLiked && removeLikes(user.uid)
+            // isLiked && removeLikes(user.uid)
         } catch (error) {
             showToast("Error", error.message, "error")
         }

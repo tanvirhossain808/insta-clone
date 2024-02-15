@@ -15,7 +15,7 @@ const FeedPost = ({ post }) => {
                 overflow={'hidden'}>
                 <Image src={post.imageUrl} alt={"FEED POST IMG"} />
             </Box>
-            {/* <PostFooter userName={userName}></PostFooter> */}
+            <PostFooter post={post} creatorProfile={userProfile}></PostFooter>
         </>
     );
 };
